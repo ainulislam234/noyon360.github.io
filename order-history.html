@@ -1,39 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Order History - NOYON</title>
-  <style>
-    body { font-family: sans-serif; background-color: #0d1117; color: white; padding: 20px; }
-    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-    th, td { padding: 10px; border: 1px solid white; text-align: left; }
-    a { color: #58a6ff; }
-  </style>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-  <h1>Order History</h1>
-  <p>This section will show all recent orders (to be connected with Firebase).</p>
+<body class="bg-gray-900 text-white">
+  <header class="bg-gradient-to-r from-purple-700 to-indigo-800 p-4 text-center text-xl font-bold">
+    Order History
+  </header>
 
-  <table>
-    <tr>
-      <th>Free Fire ID</th>
-      <th>Diamond Amount</th>
-      <th>Status</th>
-    </tr>
-    <tr>
-      <td>123456789</td>
-      <td>220 Diamonds</td>
-      <td>Completed</td>
-    </tr>
-    <tr>
-      <td>987654321</td>
-      <td>100 Diamonds</td>
-      <td>Pending</td>
-    </tr>
-  </table>
+  <main class="max-w-3xl mx-auto mt-10 p-4">
+    <h2 class="text-2xl font-semibold mb-4">Your Past Orders</h2>
+    <div class="bg-gray-800 p-4 rounded shadow-lg">
+      <table class="w-full text-left">
+        <thead class="bg-gray-700 text-sm uppercase">
+          <tr>
+            <th class="p-2">Date</th>
+            <th class="p-2">UID</th>
+            <th class="p-2">Diamonds</th>
+            <th class="p-2">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-t border-gray-700">
+            <td class="p-2">June 3, 2025</td>
+            <td class="p-2">123456789</td>
+            <td class="p-2">310</td>
+            <td class="p-2 text-green-400">Delivered</td>
+          </tr>
+          <tr class="border-t border-gray-700">
+            <td class="p-2">June 2, 2025</td>
+            <td class="p-2">987654321</td>
+            <td class="p-2">100</td>
+            <td class="p-2 text-yellow-400">Pending</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
 
-  <br>
-  <a href="index.html">← Back to Home</a>
+  <footer class="text-center text-sm text-gray-400 mt-8 p-4">
+    &copy; 2025 NOYON | All Rights Reserved
+  </footer>
 </body>
 </html>
