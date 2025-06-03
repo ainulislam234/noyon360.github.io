@@ -2,22 +2,76 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Panel - NOYON</title>
-  <style>
-    body { background-color: #0d1117; color: white; font-family: sans-serif; padding: 20px; }
-    input { margin-bottom: 10px; padding: 10px; width: 100%; background: #161b22; border: 1px solid #30363d; color: white; border-radius: 5px; }
-    button { padding: 10px; background: #238636; border: none; color: white; border-radius: 5px; cursor: pointer; }
-    a { color: #58a6ff; }
-  </style>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Firebase SDK -->
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBsYSXasQX8qTRz5helyHOYAomtNIb791E",
+      authDomain: "noyontop.firebaseapp.com",
+      projectId: "noyontop",
+      storageBucket: "noyontop.firebasestorage.app",
+      messagingSenderId: "193214438809",
+      appId: "1:193214438809:web:51aac1f19f0a10d6960708",
+      measurementId: "G-YYXJGF9QQX"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Fetch orders from Firestore
+    async function fetchOrders() {
+      const ordersRef = collection(db, "orders");
+      const snapshot = await getDocs(ordersRef);
+      const tableBody = document.getElementById("ordersBody");
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const row = `
+          <tr class='border-t border-gray-700'>
+            <td class='p-2'>${data.uid}</td>
+            <td class='p-2'>${data.diamonds}</td>
+            <td class='p-2'>${data.transactionId}</td>
+            <td class='p-2 text-yellow-400'>${data.status}</td>
+          </tr>
+        `;
+        tableBody.innerHTML += row;
+      });
+    }
+
+    window.addEventListener("DOMContentLoaded", fetchOrders);
+  </script>
 </head>
-<body>
-  <h1>Admin Panel</h1>
-  <p>This is where admin can manage orders. (Firebase will be added here later)</p>
+<body class="bg-gray-900 text-white">
+  <header class="bg-gradient-to-r from-red-700 to-orange-600 p-4 text-center text-xl font-bold">
+    Admin Panel
+  </header>
 
-  <input type="text" placeholder="Search by Free Fire ID">
-  <button>Search</button>
+  <main class="max-w-4xl mx-auto mt-10 p-4">
+    <h2 class="text-2xl font-semibold mb-4">Recent Orders (Live from Firebase)</h2>
+    <table class="w-full bg-gray-800 rounded overflow-hidden">
+      <thead class="bg-gray-700 text-sm uppercase">
+        <tr>
+          <th class="p-2">UID</th>
+          <th class="p-2">Diamonds</th>
+          <th class="p-2">Bkash TxnID</th>
+          <th class="p-2">Status</th>
+        </tr>
+      </thead>
+      <tbody id="ordersBody">
+        <!-- Firebase Orders Will Load Here -->
+      </tbody>
+    </table>
+  </main>
 
-  <br><br>
-  <a href="index.html">← Back to Home</a>
+  <footer class="text-center text-sm text-gray-400 mt-8 p-4">
+    &copy; 2025 NOYON Admin Panel
+  </footer>
 </body>
 </html>
